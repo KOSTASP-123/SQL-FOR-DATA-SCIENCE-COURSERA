@@ -103,39 +103,44 @@ FROM user
 
 	SQL code used to arrive at answer:
 	
-	-- added next to City the REVIEW_COUNT as well to validate the results.
-	SELECT CITY, REVIEW_COUNT FROM BUSINESS --NEED TO CORRECT ADD SUM(REVIEW_COUNT) AS REVIEWS
-    ORDER BY REVIEW_COUNT DESC
+
+    SELECT CITY, SUM(REVIEW_COUNT) AS REVIEWS
+    FROM BUSINESS 
+    GROUP BY CITY
+    ORDER BY 2 DESC
 	
 	Copy and Paste the Result Below:
 	
- city       | review_count |
-+------------+--------------+
-| Las Vegas  |         3873 |
-| Montréal   |         1757 |
-| Gilbert    |         1549 |
-| Las Vegas  |         1410 |
-| Las Vegas  |         1389 |
-| Las Vegas  |         1252 |
-| Las Vegas  |         1116 |
-| Las Vegas  |         1084 |
-| Las Vegas  |          961 |
-| Gilbert    |          902 |
-| Las Vegas  |          864 |
-| Scottsdale |          823 |
-| Las Vegas  |          821 |
-| Las Vegas  |          786 |
-| Henderson  |          785 |
-| Toronto    |          778 |
-| Las Vegas  |          768 |
-| Las Vegas  |          758 |
-| Scottsdale |          726 |
-| Cleveland  |          723 |
-| Las Vegas  |          720 |
-| Charlotte  |          715 |
-| Phoenix    |          711 |
-| Las Vegas  |          706 |
-| Phoenix    |          700 |
++-----------------+---------+
+| city            | REVIEWS |
++-----------------+---------+
+| Las Vegas       |   82854 |
+| Phoenix         |   34503 |
+| Toronto         |   24113 |
+| Scottsdale      |   20614 |
+| Charlotte       |   12523 |
+| Henderson       |   10871 |
+| Tempe           |   10504 |
+| Pittsburgh      |    9798 |
+| Montréal        |    9448 |
+| Chandler        |    8112 |
+| Mesa            |    6875 |
+| Gilbert         |    6380 |
+| Cleveland       |    5593 |
+| Madison         |    5265 |
+| Glendale        |    4406 |
+| Mississauga     |    3814 |
+| Edinburgh       |    2792 |
+| Peoria          |    2624 |
+| North Las Vegas |    2438 |
+| Markham         |    2352 |
+| Champaign       |    2029 |
+| Stuttgart       |    1849 |
+| Surprise        |    1520 |
+| Lakewood        |    1465 |
+| Goodyear        |    1155 |
++-----------------+---------+
+(Output limit exceeded, 25 of 362 total rows shown)
 	
 6. Find the distribution of star ratings to the business in the following cities:
 
@@ -207,7 +212,46 @@ LIMIT 3
 
 	Please explain your findings and interpretation of the results:
 	
+Sorting by fans descending there is a postivie correlation whereby the more reviews the more fans though,
+not definitive cause as we can see Gerald has the most reviews of 2000 yet not the most fans. If we amend the query below to sort by review_count instead we can also see that
+ Sara  is the second highest in review count = 1629 yet a fun based of only 50 and Yuri who is the 3rd Highest has a fan base od only 76. However, if we sort in ascending order 
+ for either review_count or fans it is [retty clear that the less review_counts the less fans a user has.
+	
+SQL Ccode Used:
 
+SELECT ID, NAME, REVIEW_COUNT, FANS
+FROM USER
+ORDER BY 4 DESC
+
++------------------------+-----------+--------------+------+
+| id                     | name      | review_count | fans |
++------------------------+-----------+--------------+------+
+| -9I98YbNQnLdAmcYfb324Q | Amy       |          609 |  503 |
+| -8EnCioUmDygAbsYZmTeRQ | Mimi      |          968 |  497 |
+| --2vR0DIsmQ6WfcSzKWigw | Harald    |         1153 |  311 |
+| -G7Zkl1wIWBBmD0KRy_sCw | Gerald    |         2000 |  253 |
+| -0IiMAZI2SsQ7VmyzJjokQ | Christine |          930 |  173 |
+| -g3XIcCb2b-BD0QBCcq2Sw | Lisa      |          813 |  159 |
+| -9bbDysuiWeo2VShFJJtcw | Cat       |          377 |  133 |
+| -FZBTkAZEXoP7CYvRV2ZwQ | William   |         1215 |  126 |
+| -9da1xk7zgnnfO1uTVYGkA | Fran      |          862 |  124 |
+| -lh59ko3dxChBSZ9U7LfUw | Lissa     |          834 |  120 |
+| -B-QEUESGWHPE_889WJaeg | Mark      |          861 |  115 |
+| -DmqnhW4Omr3YhmnigaqHg | Tiffany   |          408 |  111 |
+| -cv9PPT7IHux7XUc9dOpkg | bernice   |          255 |  105 |
+| -DFCC64NXgqrxlO8aLU5rg | Roanna    |         1039 |  104 |
+| -IgKkE8JvYNWeGu8ze4P8Q | Angela    |          694 |  101 |
+| -K2Tcgh2EKX6e6HqqIrBIQ | .Hon      |         1246 |  101 |
+| -4viTt9UC44lWCFJwleMNQ | Ben       |          307 |   96 |
+| -3i9bhfvrM3F1wsC9XIB8g | Linda     |          584 |   89 |
+| -kLVfaJytOJY2-QdQoCcNQ | Christina |          842 |   85 |
+| -ePh4Prox7ZXnEBNGKyUEA | Jessica   |          220 |   84 |
+| -4BEUkLvHQntN6qPfKJP2w | Greg      |          408 |   81 |
+| -C-l8EHSLXtZZVfUAUhsPA | Nieves    |          178 |   80 |
+| -dw8f7FLaUmWR7bfJ_Yf0w | Sui       |          754 |   78 |
+| -8lbUNlXVSoXqaRRiHiSNg | Yuri      |         1339 |   76 |
+| -0zEEaDFIjABtPQni0XlHA | Nicole    |          161 |   73 |
++------------------------+-----------+--------------+------+
 	
 9. Are there more reviews with the word "love" or with the word "hate" in them?
 
@@ -226,6 +270,15 @@ CASE WHEN TEXT LIKE '%hate%' THEN 'HATE'
      ELSE 'N/A' END AS 'VALIDATION'
 FROM REVIEW
 GROUP BY 2
+order by 2 DESC
+					
++-----------+------------+
+| COUNT(ID) | VALIDATION |
++-----------+------------+
+|      8042 | N/A        |
+|      1726 | LOVE       |
+|       232 | HATE       |
++-----------+------------+
 	
 10. Find the top 10 users with the most fans:
 
@@ -259,28 +312,98 @@ Part 2: Inferences and Analysis
 	
 i. Do the two groups you chose to analyze have a different distribution of hours?
 
-Yes
-+---------------------+-----------+
-| hours               | GROUPING  |
-+---------------------+-----------+
-| Saturday|8:00-22:00 | 2-3 Stars |
-| Saturday|9:00-17:00 | 4-5 Stars |
-+---------------------+-----------+
+It does looks like the businesses with the longest hours actually tend to be in the 2-3 start category
+
++-----------+-----------+
+| DURATION2 | GROUPING  |
++-----------+-----------+
+|      10.0 | 4-5 Stars |
+|      11.0 | 4-5 Stars |
+|         8 | 4-5 Stars |
+|       9.0 | 4-5 Stars |
+|       8.5 | 4-5 Stars |
+|      13.0 | 4-5 Stars |
+|       6.0 | 4-5 Stars |
+|       4.0 | 4-5 Stars |
+|       5.0 | 4-5 Stars |
+|       9.5 | 2-3 Stars |
+|      15.0 | 2-3 Stars |
+|        13 | 2-3 Stars |
+|      14.0 | 2-3 Stars |
+|      15.5 | 2-3 Stars |
++-----------+-----------+
 
 Code Used:
 
-SELECT h.hours,
-CASE WHEN STARS BETWEEN 4 AND 5 THEN '4-5 Stars'
-     WHEN STARS BETWEEN 2 AND 3 THEN '2-3 Stars'
-     ELSE 'N/A' END AS 'GROUPING'
+-- Below I want to check and compare the business hours/duation for the businesses in the 2 start groups
+SELECT DISTINCT DURATION2, GROUPING
+FROM
+(
+SELECT Day,START_TIME2, END_TIME2,
+-- my apporach to dealing with records where duration was negative i.e 'WHERE DURATION <0'
+-- as the END_TIME was >= midnight
+CASE
+    WHEN DURATION = -16 THEN 8
+    WHEN DURATION = -14 THEN 10
+    WHEN DURATION = -11 THEN 13
+    ELSE DURATION
+END AS DURATION2,
+GROUPING
+FROM
+(
+SELECT Day,START_TIME2, END_TIME2, ROUND((END_TIME2 -START_TIME2),2) AS DURATION , GROUPING
+FROM
+(
+-- For those businesses that finish at 20:30 or 16:30 I tried to replace 16:30 with 16.5 and the start times from '':00' to '0'
+-- and then cast it the string as decimal to calculate the Duration
+SELECT Day, CAST(REPLACE(START_TIME,':00','.0') AS DECIMAL) AS START_TIME2 , CAST(REPLACE(END_TIME, ':30', '.5') AS DECIMAL) AS END_TIME2,
+GROUPING
+FROM
+(
+SELECT distinct Time, Day, GROUPING,
+-- time had a range of opening - closing time as the actual open close times e.g. 07:00 - 17:00
+-- however I wanted to check the calculation of how many hours also the business is open 
+-- to achieve that I used LENGTH to see the LENGTH of the calculated TIME element and then find '-' in
+-- the string and get the hours left and right and classify them as START_TIME & END_TIME. 
+CASE 
+   WHEN LENGTH(Time) = 9 THEN SUBSTR(Time,5,-6)
+   WHEN LENGTH(Time) = 11 THEN SUBSTR(Time,6,-6)
+   WHEN LENGTH(Time) = 10 THEN TRIM(SUBSTR(Time,6,-6),'-')
+END AS 'START_TIME'
+,
+CASE
+   WHEN LENGTH(Time) = 9 THEN SUBSTR(Time,6,5)
+   WHEN LENGTH(Time) = 11 THEN SUBSTR(Time,7,5)
+   WHEN LENGTH(Time) = 10 THEN TRIM(SUBSTR(Time,6,5),'-')
+END AS 'END_TIME'
+
+FROM
+(
+-- the hours table contains HOURS column as VARCHAR of 22 max characters which is a combination of Day & Open/Close Times
+--for my analysis I wanted to breakdown the different days and then due a calculation of how many hours the business is open for the 2 groupings
+-- my inital thinking was to use CHARDINDEX on '|' for Hours table and segregate Days & Hours but that was not possible
+-- I checked and the equivalent for SQLite is INSTR which is not supported from this SQLIte version :(
+-- So instead, I use trim fucntion to derive what I need below and segregate to 2 columns. Day and Time
+SELECT distinct h.HOURS, TRIM(H.HOURS,'1234567890|:-') as 'Day'  ,TRIM(H.HOURS,'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM|') as 'Time',
+CASE 
+  WHEN STARS BETWEEN 4 AND 5 THEN '4-5 Stars'
+  WHEN STARS BETWEEN 2 AND 3 THEN '2-3 Stars'
+  ELSE 'N/A'
+END AS 'GROUPING'
 FROM BUSINESS B, CATEGORY C
 left JOIN hours H ON  B.ID = H.BUSINESS_ID 
 WHERE B.ID = C.BUSINESS_ID
 AND (B.CITY  = 'Las Vegas' OR c.category = 'Food')
 AND H.HOURS != 'None' -- I selected to do a left join above and then filter out records with no hours registered.
 AND GROUPING IN ('4-5 Stars','2-3 Stars')
-GROUP BY 2
 
+)
+ORDER BY DAY
+)
+)
+ORDER BY GROUPING DESC
+)
+)
 
 ii. Do the two groups you chose to analyze have a different number of reviews?
      Yes, note though as the output only captured one group. That is because there were reviews in dataset
