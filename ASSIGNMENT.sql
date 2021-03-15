@@ -454,7 +454,8 @@ I can see that Eastside has only two 4-5 stars businesses while it has majority 
 China town with 7 businesses with 4-5 stars rating.
 
 
-Code Used:
+SQL code used for analysis:
+					
 SELECT CITY, neighborhood,
 CASE WHEN b.STARS BETWEEN 4 AND 5 THEN '4-5 Stars'
      WHEN b.STARS BETWEEN 2 AND 3 THEN '2-3 Stars'
@@ -467,28 +468,42 @@ AND GROUPING IN ('4-5 Stars','2-3 Stars')
 GROUP BY 2,3
 ORDER BY 2,3 DESC
 
-SQL code used for analysis:
-
-		
-		
 2. Group business based on the ones that are open and the ones that are closed. What differences can you find between the ones that are still open and the ones that are closed? List at least two differences and the SQL code you used to arrive at your answer.
 		
 i. Difference 1:
-         
+For closed businesses the Average star rating is 3.52 rounded to 2 decimal points while for open businesses it is 3.68.   
          
 ii. Difference 2:
+Close businesses haver 35,261 reviews which is quite low compared to Open businesses which have 269,300 reviews.
          
-         
+  +-----------------+---------------+-------------------+
+| AVG_Star_Rating | REVIEW_COUNT2 | 'IsBusinessOpen?' |
++-----------------+---------------+-------------------+
+|   3.52039473684 |         35261 | CLOSED            |
+|   3.67900943396 |        269300 | OPEN              |
++-----------------+---------------+-------------------+       
          
 SQL code used for analysis:
 
-	
+SELECT AVG(STARS) AS 'AVG_Star_Rating', sum(REVIEW_COUNT) AS 'REVIEW_COUNT2', 
+CASE WHEN IS_OPEN = 1 THEN 'OPEN'
+     WHEN IS_OPEN = 0 THEN 'CLOSED'
+     ELSE 'N/A'
+END AS ['IsBusinessOpen?']
+FROM BUSINESS
+GROUP BY ['IsBusinessOpen?']
 	
 3. For this last part of your analysis, you are going to choose the type of analysis you want to conduct on the Yelp dataset and are going to prepare the data for analysis.
 
 Ideas for analysis include: Parsing out keywords and business attributes for sentiment analysis, clustering businesses to find commonalities or anomalies between them, predicting the overall star rating for a business, predicting the number of fans a user will have, and so on. These are just a few examples to get you started, so feel free to be creative and come up with your own problem you want to solve. Provide answers, in-line, to all of the following:
 	
 i. Indicate the type of analysis you chose to do:
+
+I would like to see per State what type (category) of business had higher chances of success defining the higher chances of success
+by higher star ratings along with count of Open/Closed Business in a state and category. Along with whether there is a certain trend or cluster of attributes that
+those successful businesses share as this kind of data/analysis can help prospective businessmen to decide what type of establishment/business should they consider to set up,
+where and with what kind of attributes for a higher chance of success. Apart from attributes we will also try to analyse of they share any  trend of Days/Hours operations
+using an amalgamation of the query used earlier in this assignment sheet.
          
          
 ii. Write 1-2 brief paragraphs on the type of data you will need for your analysis and why you chose that data:
