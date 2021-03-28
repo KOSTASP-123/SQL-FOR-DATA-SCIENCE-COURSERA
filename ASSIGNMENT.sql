@@ -499,11 +499,10 @@ Ideas for analysis include: Parsing out keywords and business attributes for sen
 	
 i. Indicate the type of analysis you chose to do:
 
-I would like to see per State what type (category) of business had higher chances of success defining the higher chances of success
-by higher star ratings along with count of Open/Closed Business in a state and category. Along with whether there is a certain trend or cluster of attributes that
-those successful businesses share as this kind of data/analysis can help prospective businessmen to decide what type of establishment/business should they consider to set up,
-where and with what kind of attributes for a higher chance of success. Apart from attributes we will also try to analyse of they share any  trend of Days/Hours operations
-using an amalgamation of the query used earlier in this assignment sheet.
+We would like to see per State & city what type (category) of business had higher chances of success defining the higher chances of success by higher star ratings along with count of Open/Closed Business
+in a state and category. Along with whether there is a certain trend or cluster of attributes that those successful businesses share as this kind of data/analysis can help prospective businessmen to decide 
+what type of establishment/business should they consider to set up where and with what kind of attributes for a higher chance of success. Apart from attributes we will also try to analyse if they share any trend of Days/Hours operations
+using an amalgamation of the query used earlier in this assignment.
          
          
 ii. Write 1-2 brief paragraphs on the type of data you will need for your analysis and why you chose that data:
