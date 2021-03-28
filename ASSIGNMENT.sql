@@ -380,7 +380,7 @@ END AS 'END_TIME'
 FROM
 (
 -- the hours table contains HOURS column as VARCHAR of 22 max characters which is a combination of Day & Open/Close Times
---for my analysis I wanted to breakdown the different days and then due a calculation of how many hours the business is open for the 2 groupings
+--for my analysis I wanted to breakdown the different days and then do a calculation of how many hours the business is open for the 2 groupings
 -- my inital thinking was to use CHARDINDEX on '|' for Hours table and segregate Days & Hours but that was not possible
 -- I checked and the equivalent for SQLite is INSTR which is not supported from this SQLIte version :(
 -- So instead, I use trim fucntion to derive what I need below and segregate to 2 columns. Day and Time
