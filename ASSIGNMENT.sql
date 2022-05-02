@@ -509,7 +509,14 @@ I am defining the higher chances of success by higher star ratings along with co
 Moreover, I am interested to see whether there is a certain trend or cluster of attributes that those successful businesses share as this kind of data/analysis can help prospective businessmen to decide 
 what type of establishment/business should they consider to set up where and with what kind of attributes for a higher chance of success.
 Apart from attributes I will also try to analyse if they share any trend of Days/Hours operations using an amalgamation of the query used earlier in this assignment.
-					
+
+So in summary the main data I will be using are:
+* Star Rating
+* Review_count
+* Is_Open
+* Category
+* Days & Hours of operation defined as [Operating Schedule]
+* Shared/common attributes. 
                   
 iii. Output of your finished dataset:
 
